@@ -2,6 +2,8 @@ package com.pecastech.app.model;
 
 import java.math.BigDecimal;
 
+import org.springframework.context.annotation.Primary;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +38,11 @@ public class Product {
 
     private String name;
 
+    private String shopId;
+
     private BigDecimal price; 
+
+    private BigDecimal profitMargin;
 
     private String description; 
 
