@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.pecastech.app.repository.ProductRepository;
-import com.pecastech.app.services.AliexpressService;
+import com.pecastech.app.services.ProductService;
 import com.pecastech.app.dto.ItemRegistrationDto;
 import com.pecastech.app.model.Product;
 
@@ -24,25 +24,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ProductsController {
     
     @Autowired
-    ProductRepository productRepository;
+    ProductRepository repository;
+    
+    @Autowired
+    ProductService service;
 
 
     @GetMapping()
     public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok().body(productRepository.findAll());
+        return ResponseEntity.ok().body(repository.findAll());
     }
 
     @PostMapping()
-    public ResponseEntity<ItemRegistrationDto> postProducts(@RequestBody ItemRegistrationDto item) {
-        return ResponseEntity.ok().body(item);
+    public ResponseEntity<Product> postProducts(@RequestBody ItemRegistrationDto item) {
+        
+        return ResponseEntity.ok().body(service.insert(item));
     }
 
     @GetMapping("path")
-    public String getMethodName() {
+    public double getMethodName() {
         RestTemplate rTemplate = new RestTemplate();
 
-        JSONObject json = new JSONObject(rTemplate.getForEntity("https://api.hgbrasil.com/finance", String.class));
-        return json.toString();
+        String test = rTemplate.getForEntity("https://api.hgbrasil.com/finance", String.class)
+                                .getBody();
+
+        JSONObject json = new JSONObject(test);
+        return json.getJSONObject("results").getJSONObject( "currencies").getJSONObject("USD").getDouble("buy");
     }
     
 }

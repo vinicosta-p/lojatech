@@ -17,14 +17,14 @@ public class AliexpressService {
     @Value("${api.key}")
     private String API_SECRET;
     private String HOST = "aliexpress-datahub.p.rapidapi.com";
-    private String url = "https://aliexpress-datahub.p.rapidapi.com/item_detail_simple?region=BR&locale=pt_BR";
+    private String url = "https://aliexpress-datahub.p.rapidapi.com/item_detail?region=BR&locale=pt_BR";
 
     private RestTemplate restTemplate = new RestTemplate();
 
     private HttpHeaders headers = new HttpHeaders();
     //itemId=3256804591426248 exemplo
     
-    public String itemDetailSimple(String Id){
+    public String getItem(String Id){
         String params = "&itemId=" + Id;
 
         headers.set("X-RapidAPI-Key", API_SECRET);
