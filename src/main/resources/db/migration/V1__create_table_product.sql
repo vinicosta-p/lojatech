@@ -5,7 +5,7 @@ CREATE TABLE product (
     shop_id TEXT,
     price DECIMAL NOT NULL, 
     promotion_price DECIMAL,
-    freight DECIMAL NOT NULL,
+    freight TEXT NOT NULL,
     description TEXT, 
     image TEXT,  
     estimated_time TEXT, 
