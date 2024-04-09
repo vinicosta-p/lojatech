@@ -2,14 +2,13 @@ package com.pecastech.app.dto;
 
 import java.math.BigDecimal;
 
-public record ProductDto(
-String name, 
+public record StockDto(String name, 
+String category, 
 BigDecimal price, 
-BigDecimal profitMargin, 
 String description,
 String image,
-BigDecimal freight,
+String freight,
 String estimatedTime, 
-Boolean isAvailable) {
+int quantity) {
     
 }

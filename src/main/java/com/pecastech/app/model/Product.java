@@ -28,13 +28,13 @@ public class Product {
 
     private String name;
 
+    private String category;
+
     private String shopId;
 
     private BigDecimal price; 
 
     private BigDecimal promotionPrice;
-
-    private BigDecimal profitMargin;
 
     private String description; 
 
