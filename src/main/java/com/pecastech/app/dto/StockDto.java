@@ -2,7 +2,9 @@ package com.pecastech.app.dto;
 
 import java.math.BigDecimal;
 
-public record StockDto(String name, 
+public record StockDto(
+String name, 
+String ownerID,
 String category, 
 BigDecimal price, 
 String description,

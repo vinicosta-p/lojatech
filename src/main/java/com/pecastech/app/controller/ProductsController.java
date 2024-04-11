@@ -14,9 +14,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("api/products")
@@ -42,7 +46,20 @@ public class ProductsController {
 
     @PostMapping("stock")
     public ResponseEntity<Product> postItem(@RequestBody StockDto item) {
-        
+
         return ResponseEntity.ok().body(service.insert(item));
     }
+
+    @PutMapping("{ownerId}")
+    public ResponseEntity<?> putItem(@PathVariable String ownerId, @RequestBody StockDto stockDto) {
+        service.put(ownerId,stockDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("{ownerId}")
+    public ResponseEntity<?> deleteItem(@PathVariable String ownerId){
+        service.delete(ownerId);
+        return ResponseEntity.ok().build();
+    }
+
 }

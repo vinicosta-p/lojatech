@@ -23,7 +23,7 @@ public class ProductService {
 
     public Product insert(AliexpressDto itemRegistrationDto){
         Product product = new Product();
-
+        product.setOwnerId(itemRegistrationDto.ownerID());
         product.setShopId(itemRegistrationDto.id());
         product.setPrice(itemRegistrationDto.price());
         product.setCategory(itemRegistrationDto.category());
@@ -64,9 +64,10 @@ public class ProductService {
     public Product insert(StockDto productdDto){
         Product product = new Product();
         
+        product.setOwnerId(productdDto.ownerID());
         product.setName(productdDto.name());
         product.setCategory(productdDto.category());
-        product.setDescription(product.getDescription());
+        product.setDescription(productdDto.description());
         
         product.setPrice(productdDto.price());
         product.setImage(productdDto.image());
@@ -82,5 +83,54 @@ public class ProductService {
         repository.save(product);
         return product;
     }
+
+    public void delete(String ownerID){
+        repository.deleteByOwnerId(ownerID);
+    }
     
+    public void put(String ownerID, StockDto stockDto){
+        Product product = repository.findByOwnerId(ownerID);
+        if(stockDto.ownerID() != null){
+            product.setOwnerId(stockDto.ownerID());
+        }
+        
+        
+        if(stockDto.name() != null){
+            product.setName(stockDto.name());
+        }
+        
+        if(stockDto.category() != null){
+            product.setCategory(stockDto.category());
+        }
+        
+        if(stockDto.description() != null){
+            product.setDescription(stockDto.description());
+        }
+        
+        if(stockDto.price() != null){
+            product.setPrice(stockDto.price());
+        }
+        
+        if(stockDto.image() != null){
+            product.setImage(stockDto.image());
+        }
+        
+        if(stockDto.estimatedTime() != null){
+            product.setEstimatedTime(stockDto.estimatedTime());
+        }
+        
+        if(stockDto.freight() != null){
+            product.setFreight(stockDto.freight()); 
+        }
+        
+        // TODO: reavaliar o uso de int para quantity por causa de valores nulos, provavelmente usar INTEGER
+        if(stockDto.quantity() >= 0){
+            product.setQuantity(stockDto.quantity());
+
+            boolean isAvailable = stockDto.quantity() > 0;
+            product.setIsAvailable(isAvailable);
+        }
+        
+        repository.save(product);
+    }
 }

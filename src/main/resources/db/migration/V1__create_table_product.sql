@@ -1,5 +1,6 @@
 CREATE TABLE product (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    owner_id TEXT NOT NULL,
     name TEXT NOT NULL,
     category TEXT NOT NULL,
     shop_id TEXT,
