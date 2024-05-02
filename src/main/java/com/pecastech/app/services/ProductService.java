@@ -90,10 +90,12 @@ public class ProductService {
     
     public void put(String ownerID, StockDto stockDto){
         Product product = repository.findByOwnerId(ownerID);
+        if( product == null) {
+            //TODO: throw new produto nao existe
+        }
         if(stockDto.ownerID() != null){
             product.setOwnerId(stockDto.ownerID());
         }
-        
         
         if(stockDto.name() != null){
             product.setName(stockDto.name());
