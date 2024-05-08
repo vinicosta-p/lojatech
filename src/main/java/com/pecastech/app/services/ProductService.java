@@ -3,15 +3,12 @@ package com.pecastech.app.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import com.pecastech.app.dto.AliexpressDto;
 import com.pecastech.app.dto.StockDto;
 import com.pecastech.app.exceptions.ProductNotFoundException;
 import com.pecastech.app.model.Product;
 import com.pecastech.app.repository.ProductRepository;
-
-import java.math.BigDecimal;
 
 @Service
 public class ProductService {
@@ -25,12 +22,14 @@ public class ProductService {
     public Product insert(AliexpressDto itemRegistrationDto){
         Product product = new Product();
         product.setOwnerId(itemRegistrationDto.ownerID());
-        product.setShopId(itemRegistrationDto.id());
+        product.setShopId(itemRegistrationDto.id());    
+        //TODO - RDN: price vem convertido
         product.setPrice(itemRegistrationDto.price());
         product.setCategory(itemRegistrationDto.category());
+        product.setPromotionPrice(itemRegistrationDto.promotionPrice());
         
         //String aliexJson = aliexpressService.getItem(itemRegistrationDto.id());
-      
+        
         RestTemplate abc = new RestTemplate();
         String aliexJson = abc.getForEntity("https://604b2e53-8673-48f4-aad2-994499634da3.mock.pstmn.io/teste", String.class).getBody();
        
@@ -40,23 +39,14 @@ public class ProductService {
         JSONObject item = json.getJSONObject("result").getJSONObject("item");;
 
         JSONObject priceData = item.getJSONObject("sku").getJSONArray("base").getJSONObject(0);
-
-        BigDecimal promotionPrice = priceData.getBigDecimal("promotionPrice");
+        
         int quantity = priceData.getInt("quantity");
-    
+        product.setQuantity(quantity);
+        product.setIsAvailable(quantity >= 1);
         
         product.setName(item.getString("title"));
         product.setImage(item.getJSONArray("images").getString(0));
-        product.setPromotionPrice(promotionPrice);
-        
-        product.setQuantity(quantity);
-        product.setIsAvailable(quantity >= 1);
 
-        JSONArray delivery = json.getJSONObject("result").getJSONObject("delivery").getJSONArray("shippingList").getJSONObject(0).getJSONArray("note");
-
-        product.setFreight(delivery.getString(0));
-        product.setEstimatedTime(delivery.getString(2));
-            
         repository.save(product);
 
         return product;
@@ -69,12 +59,9 @@ public class ProductService {
         product.setName(productdDto.name());
         product.setCategory(productdDto.category());
         product.setDescription(productdDto.description());
-        
+        product.setPromotionPrice(productdDto.promotionPrice());
         product.setPrice(productdDto.price());
-        product.setImage(productdDto.image());
-        
-        product.setEstimatedTime(productdDto.estimatedTime());
-        product.setFreight(productdDto.freight()); 
+        product.setImage(productdDto.image()); 
 
         product.setQuantity(productdDto.quantity());
 
@@ -123,15 +110,6 @@ public class ProductService {
             product.setImage(stockDto.image());
         }
         
-        if(stockDto.estimatedTime() != null){
-            product.setEstimatedTime(stockDto.estimatedTime());
-        }
-        
-        if(stockDto.freight() != null){
-            product.setFreight(stockDto.freight()); 
-        }
-        
-        // TODO: reavaliar o uso de int para quantity por causa de valores nulos, provavelmente usar INTEGER
         if(stockDto.quantity() >= 0){
             product.setQuantity(stockDto.quantity());
 

@@ -37,8 +37,7 @@ public class AliexpressService {
         ResponseEntity<String> response = restTemplate.exchange(url + params, HttpMethod.GET, request, String.class, 1);
         
        if(response.getStatusCode().value() != 200){    
-           throw new ServerErrorAliexpressException();
-           
+           throw new ServerErrorAliexpressException();        
        }
 
         headers.clear();

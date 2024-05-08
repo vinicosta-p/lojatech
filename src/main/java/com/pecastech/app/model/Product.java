@@ -1,6 +1,6 @@
 package com.pecastech.app.model;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,9 +34,9 @@ public class Product {
 
     private String shopId;
 
-    private BigDecimal price; 
+    private BigInteger price; 
 
-    private BigDecimal promotionPrice;
+    private BigInteger promotionPrice;
 
     private String description; 
 
@@ -45,11 +45,5 @@ public class Product {
     private int quantity;
     
     private Boolean isAvailable;
-
-    private String freight; 
-
-    private String estimatedTime; 
-    
-  
 
 }

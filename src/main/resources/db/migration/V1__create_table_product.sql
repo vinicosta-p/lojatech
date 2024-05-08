@@ -4,12 +4,10 @@ CREATE TABLE product (
     name TEXT NOT NULL,
     category TEXT NOT NULL,
     shop_id TEXT,
-    price DECIMAL NOT NULL, 
-    promotion_price DECIMAL,
-    freight TEXT NOT NULL,
+    price INTEGER NOT NULL, 
+    promotion_price INTEGER,
     description TEXT, 
     image TEXT,  
-    estimated_time TEXT, 
     quantity INTEGER NOT NULL,
     is_available BOOLEAN NOT NULL
 );
