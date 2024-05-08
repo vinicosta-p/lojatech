@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.pecastech.app.dto.AliexpressDto;
 import com.pecastech.app.dto.StockDto;
+import com.pecastech.app.exceptions.ProductNotFoundException;
 import com.pecastech.app.model.Product;
 import com.pecastech.app.repository.ProductRepository;
 
@@ -85,13 +86,18 @@ public class ProductService {
     }
 
     public void delete(String ownerID){
+        Product product = repository.findByOwnerId(ownerID);
+        if( product == null) {
+            throw new ProductNotFoundException();
+            
+        }
         repository.deleteByOwnerId(ownerID);
     }
     
     public void put(String ownerID, StockDto stockDto){
         Product product = repository.findByOwnerId(ownerID);
         if( product == null) {
-            //TODO: throw new produto nao existe
+            throw new ProductNotFoundException();
         }
         if(stockDto.ownerID() != null){
             product.setOwnerId(stockDto.ownerID());

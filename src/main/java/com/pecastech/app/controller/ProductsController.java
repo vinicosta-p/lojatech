@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import com.pecastech.app.dto.AliexpressDto;
-import com.pecastech.app.dto.OwnerIdDto;
 import com.pecastech.app.dto.StockDto;
 import com.pecastech.app.model.Product;
 
@@ -56,20 +55,18 @@ public class ProductsController {
 
         return ResponseEntity.ok().body(service.insert(item));
     }
-    // validar na requisição
+
     @PutMapping("{ownerId}")
     public ResponseEntity<?> putItem(@PathVariable @Size(min = 5, max = 10, message = "About Me must be between 5 and 10 characters")
-    @NotBlank(message = "OwnerId cannot be null") @Pattern(regexp = "[0-9]*") OwnerIdDto ownerId, @RequestBody StockDto stockDto) {
+    @NotBlank(message = "OwnerId cannot be null") @Pattern(regexp = "[0-9]*") String ownerId, @RequestBody StockDto stockDto) {
 
-        service.put(ownerId.id(),stockDto);
+        service.put(ownerId,stockDto);
         return ResponseEntity.ok().build();
     }
-    // validar na requisição
+
     @DeleteMapping("{ownerId}")
-    public ResponseEntity<?> deleteItem(@PathVariable @Size(min = 5, max = 10, message = "About Me must be between 5 and 10 characters")
-    @NotBlank(message = "OwnerId cannot be null") @Pattern(regexp = "[0-9]*") String ownerId){
-        System.out.println(ownerId);
-       // service.delete(ownerId.id());
+    public ResponseEntity<?> deleteItem(@PathVariable @Size(min = 5, max = 10) @NotBlank() @Pattern(regexp = "[0-9]*") String ownerId){
+        service.delete(ownerId);
         return ResponseEntity.ok().build();
     }
 

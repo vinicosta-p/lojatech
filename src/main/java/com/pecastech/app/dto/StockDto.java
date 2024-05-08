@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record StockDto(
-    @NotBlank
+    @NotBlank(message = "TA VAZIO NOMINHO")
     String name, 
     @NotBlank
     String ownerID,

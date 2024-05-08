@@ -7,10 +7,6 @@ import com.pecastech.app.model.Product;
 
 import jakarta.transaction.Transactional;
 
-import java.util.List;
-
-
-
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String>{
     Product findByOwnerId(String ownerId);

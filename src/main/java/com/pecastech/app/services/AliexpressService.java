@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.pecastech.app.exceptions.ServerErrorAliexpressException;
+
 
 @Service
 public class AliexpressService {
@@ -34,6 +36,11 @@ public class AliexpressService {
 
         ResponseEntity<String> response = restTemplate.exchange(url + params, HttpMethod.GET, request, String.class, 1);
         
+       if(response.getStatusCode().value() != 200){    
+           throw new ServerErrorAliexpressException();
+           
+       }
+
         headers.clear();
         
         return response.getBody();
