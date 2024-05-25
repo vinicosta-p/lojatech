@@ -7,8 +7,7 @@ Essa é uma API que gerencia os cadastros de produtos e-commerce com a técnica 
 
 - [Sobre](#Sobre)
 - [Tecnologias](#Tecnologias)
-- [Instalação](#Instalação)
-- [Como usar](#Como usar)
+- [Como usar](#Como-usar)
 	- [Pré Requisitos](#pre-requisitos)
 	- [Rodando a aplicação](#Rodando-a-aplicacao)
 	- [API Endpoints](#api-endpoints)
