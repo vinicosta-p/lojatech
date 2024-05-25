@@ -50,7 +50,7 @@ public class ProductsController {
         return ResponseEntity.ok().body(service.insert(item));
     }
 
-    @PostMapping("stock")
+    @PostMapping()
     public ResponseEntity<Product> postItem(@RequestBody @Valid StockDto item) {
 
         return ResponseEntity.ok().body(service.insert(item));
