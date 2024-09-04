@@ -112,8 +112,8 @@ POST /api/product/aliexpress - Create a new product by aliexpress
 **REQUEST BODY**
 ```json
 {
-    "ownerID":"004",
-    "price":4000,
+	"ownerID":"004",
+	"price":4000,
 	"category":"Jogos",
 	"promotionPrice":3000 
 }
@@ -123,7 +123,7 @@ POST /api/product/aliexpress - Create a new product by aliexpress
 ```json
 {
 	"ownerId":"0004", // ID dado pelo admnistrador
-    "name":"Marca - Nome do produto", 
+    	"name":"Marca - Nome do produto", 
 	"category":"Perfume",
 	"shopId":"38123021", // ID de produtos da aliexpress
 	"price":100000, // preço em centavos
